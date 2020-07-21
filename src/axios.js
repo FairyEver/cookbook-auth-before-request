@@ -1,3 +1,5 @@
-import instance from './instance'
+import { open } from '@/utils/login-dialog/index.js'
 
-instance.$children[0].say()
+setTimeout(() => {
+  open()
+}, 1000)
