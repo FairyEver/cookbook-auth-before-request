@@ -1,16 +1,5 @@
 <template>
   <div id="app">
-    app
+    <router-view/>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'app',
-  methods: {
-    say () {
-      console.log('say')
-    }
-  }
-}
-</script>
