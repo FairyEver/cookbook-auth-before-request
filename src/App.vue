@@ -6,6 +6,11 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  methods: {
+    say () {
+      console.log('say')
+    }
+  }
 }
 </script>
