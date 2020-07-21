@@ -2,8 +2,8 @@
   <div>
     <p>
       <el-button @click="getTicketList">请求商品列表</el-button>
-      <el-button @click="goLogin">前往登录页面</el-button>
       <el-button v-if="isLogged" @click="logout">移除登录状态</el-button>
+      <el-button v-else @click="goLogin">前往登录页面</el-button>
     </p>
     <el-table
       :data="list"
