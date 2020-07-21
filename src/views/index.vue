@@ -2,6 +2,8 @@
   <div>
     <p>
       <el-button @click="getTicketList">请求商品列表</el-button>
+      <el-button @click="goLogin">前往登录页面</el-button>
+      <el-button v-if="isLogged" @click="logout">移除登录状态</el-button>
     </p>
     <el-table
       :data="list"
@@ -16,16 +18,34 @@
 </template>
 
 <script>
+import { remove, getToken } from '@/utils/cookie-user'
+
 export default {
   data () {
     return {
-      list: []
+      list: [],
+      isLogged: !!getToken()
     }
   },
   methods: {
     async getTicketList () {
-      const result = await this.$api.TICKET_LIST()
-      this.list = result
+      this.list = []
+      try {
+        const result = await this.$api.TICKET_LIST()
+        this.list = result
+      } catch (error) {}
+      this.refreshIsLogged()
+    },
+    goLogin () {
+      this.$router.push({ name: 'login' })
+    },
+    logout () {
+      remove()
+      this.refreshIsLogged()
+      this.list = []
+    },
+    refreshIsLogged () {
+      this.isLogged = !!getToken()
     }
   }
 }

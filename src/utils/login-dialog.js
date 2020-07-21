@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import login from '@/components/login.vue'
 
 export function open () {
   return new Promise((resolve, reject) => {
@@ -9,9 +8,12 @@ export function open () {
           title="Login"
           width="400px"
           visible={ this.active }
-          onClose={ () => { this.active = false } }
+          onClose={ this.onCancel }
           onClosed={ this.destroy }>
-          <login/>
+          <login
+            widget
+            onSuccess={ this.onLoginSuccess }
+            onCancel={ this.onCancel }/>
         </el-dialog>
       },
       data () {
@@ -26,7 +28,14 @@ export function open () {
         destroy () {
           document.body.removeChild(component.$el)
           this.$destroy()
+        },
+        onLoginSuccess () {
           resolve()
+          this.active = false
+        },
+        onCancel () {
+          this.active = false
+          reject(new Error('放弃登录'))
         }
       }
     })

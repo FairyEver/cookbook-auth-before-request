@@ -20,6 +20,9 @@ export default ({ service, mock, faker, tools }) => ({
     return service({
       url: '/login',
       method: 'post',
+      headers: {
+        auth: false
+      },
       data: {
         username,
         password
