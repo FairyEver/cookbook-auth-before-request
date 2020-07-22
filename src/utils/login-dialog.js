@@ -1,8 +1,8 @@
 import Vue from 'vue'
 
-export function open () {
+export default function () {
   return new Promise((resolve, reject) => {
-    const Instance = new Vue({
+    const Component = Vue.extend({
       render (h) {
         return <el-dialog
           title="Login"
@@ -26,7 +26,7 @@ export function open () {
       },
       methods: {
         destroy () {
-          document.body.removeChild(component.$el)
+          document.body.removeChild(instance.$el)
           this.$destroy()
         },
         onLoginSuccess () {
@@ -39,7 +39,7 @@ export function open () {
         }
       }
     })
-    const component = Instance.$mount()
-    document.body.appendChild(component.$el)
+    const instance = new Component().$mount()
+    document.body.appendChild(instance.$el)
   })
 }

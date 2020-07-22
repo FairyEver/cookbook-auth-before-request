@@ -2,14 +2,8 @@ import { get, set } from 'lodash-es'
 import axios from 'axios'
 import Adapter from 'axios-mock-adapter'
 import { Message } from 'element-ui'
-import { open } from '@/utils/login-dialog'
+import login from '@/utils/login-dialog'
 import { getToken } from '@/utils/cookie-user'
-
-// function wait (time) {
-//   return new Promise(resolve => {
-//     setTimeout(resolve, time)
-//   })
-// }
 
 function createService () {
   // 创建一个 axios 实例
@@ -19,7 +13,7 @@ function createService () {
       const ignoreAuth = get(config, 'headers.auth') === false
       const isLogged = !!getToken()
       if (!ignoreAuth && !isLogged) {
-        await open()
+        await login()
       }
       set(config, 'headers.token', getToken())
       return config
